@@ -4,7 +4,7 @@ import { getUser } from "./get-user";
 
 export const server = {
     async authorize(authLogin, authPassword) {
-        const user = getUser(authLogin);
+        const user =  await getUser(authLogin);
 
         if (!user) {
             return {
