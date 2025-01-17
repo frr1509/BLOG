@@ -4,7 +4,6 @@ export const sessions = {
         const hash = Math.random().toFixed(50);
 
         this.list[hash] = user;
-        console.log(this.list)
         return hash;
     },
     remove(hash) {

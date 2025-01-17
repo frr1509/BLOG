@@ -7,6 +7,7 @@ export const server = {
         sessions.remove(session);
     },
     async authorize(authLogin, authPassword) {
+        console.log(authLogin);
         const user = await getUser(authLogin);
 
         if (!user) {
@@ -34,16 +35,15 @@ export const server = {
         };
     },
     async register(regLogin, regPassword) {
-        const user = getUser(regLogin);
-
-        if (user) {
+        const existedUser = await getUser(regLogin);
+        if (existedUser) {
             return {
                 error: "Логин уже занят",
                 res: null,
             };
         }
 
-        await addUser(regLogin, regPassword);
+        const user = await addUser(regLogin, regPassword);
 
         return {
             error: null,

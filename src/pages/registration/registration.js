@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { AuthError, Button, H2, Input } from "../../components";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { server } from "../../bff";
 import { useDispatch, useSelector, useStore } from "react-redux";
 import { setUser } from "../../actions";
@@ -12,7 +12,7 @@ import { selectUserRole } from "../../selecrtors";
 import { ROLE } from "../../constans/roleId";
 import { useResetForm } from "../../hooks/useResetForm";
 
-const authSchemeForm = yup.object().shape({
+const regSchemeForm = yup.object().shape({
     login: yup
         .string()
         .required("Поле обязательно для заполнения")
@@ -31,16 +31,13 @@ const authSchemeForm = yup.object().shape({
         )
         .min(6, "Минимун 6 символов")
         .max(30, "Максимум 30 символов"),
+    passcheck: yup
+        .string()
+        .required("Поле обязательно для заполнения")
+        .oneOf([yup.ref("password"), null], "Пароли не совпадают"),
 });
 
-const StyledLink = styled(Link)`
-    text-align: center;
-    text-decoration: underline;
-    margin: 20px 0;
-    font-size: 18px;
-`;
-
-const AuthorizationContainer = ({ className }) => {
+const RegistrationContainer = ({ className }) => {
     const {
         register,
         reset,
@@ -50,14 +47,15 @@ const AuthorizationContainer = ({ className }) => {
         defaultValues: {
             login: "",
             password: "",
+            passcheck: "",
         },
-        resolver: yupResolver(authSchemeForm),
+        resolver: yupResolver(regSchemeForm),
     });
 
     const [serverError, setServerError] = useState(null);
 
     const onSubmit = ({ login, password }) => {
-        server.authorize(login, password).then(({ error, res }) => {
+        server.register(login, password).then(({ error, res }) => {
             if (error) {
                 setServerError(`Ошибка запроса: ${error}`);
                 return;
@@ -67,7 +65,10 @@ const AuthorizationContainer = ({ className }) => {
         });
     };
 
-    const formError = errors?.login?.message || errors?.password?.message;
+    const formError =
+        errors?.login?.message ||
+        errors?.password?.message ||
+        errors?.passcheck?.message;
     const errorMessage = formError || serverError;
 
     const dispatch = useDispatch();
@@ -82,7 +83,7 @@ const AuthorizationContainer = ({ className }) => {
 
     return (
         <div className={className}>
-            <H2>Авторизация</H2>
+            <H2>Регистрация</H2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Input
                     type="text"
@@ -98,17 +99,23 @@ const AuthorizationContainer = ({ className }) => {
                         onChange: () => setServerError(null),
                     })}
                 />
+                <Input
+                    type="password"
+                    placeholder="Повтор пароля..."
+                    {...register("passcheck", {
+                        onChange: () => setServerError(null),
+                    })}
+                />
                 <Button type="submit" disabled={!!formError}>
-                    Авторизоваться
+                    Зарегистрироваться
                 </Button>
                 {errorMessage && <AuthError>{errorMessage}</AuthError>}
-                <StyledLink to="/register">Регистрация</StyledLink>
             </form>
         </div>
     );
 };
 
-export const Authorization = styled(AuthorizationContainer)`
+export const Registration = styled(RegistrationContainer)`
     display: flex;
     justify-content: center;
     flex-direction: column;
