@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { AuthError, Button, H2, Input } from "../../components";
 import { Link, Navigate } from "react-router-dom";
 import { server } from "../../bff";
-import { useDispatch, useSelector, useStore } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../actions";
 import { selectUserRole } from "../../selecrtors";
 import { ROLE } from "../../constans/roleId";
@@ -18,7 +18,7 @@ const authSchemeForm = yup.object().shape({
         .required("Поле обязательно для заполнения")
         .matches(
             /^\w+$/,
-            "Неверно заполнен логин. Допускаются только буквы и цыфры",
+            "Неверно заполнен логин. Допускаются только буквы и цифры",
         )
         .min(3, "Минумум 3 смвола")
         .max(15, "Максимум 15 символов"),
@@ -27,7 +27,7 @@ const authSchemeForm = yup.object().shape({
         .required("Поле обязательно для заполнения")
         .matches(
             /^[\w#%]+$/,
-            "Неверно заполнен пароль. Допускаются буквы, цыфры и знаки #,%.",
+            "Неверно заполнен пароль. Допускаются буквы, цифры и знаки #,%.",
         )
         .min(6, "Минимун 6 символов")
         .max(30, "Максимум 30 символов"),
@@ -110,7 +110,6 @@ const AuthorizationContainer = ({ className }) => {
 
 export const Authorization = styled(AuthorizationContainer)`
     display: flex;
-    justify-content: center;
     flex-direction: column;
     align-items: center;
 

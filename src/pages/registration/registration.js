@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { AuthError, Button, H2, Input } from "../../components";
 import { Navigate } from "react-router-dom";
 import { server } from "../../bff";
-import { useDispatch, useSelector, useStore } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../actions";
 import { selectUserRole } from "../../selecrtors";
 import { ROLE } from "../../constans/roleId";

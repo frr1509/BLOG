@@ -4,32 +4,39 @@
       "id": "001",
       "login": "alexsey",
       "password": "qwerty123",
-      "register_at": "15.09.2024",
-      "role_id": "0"
+      "registred_at": "15.09.2024",
+      "role_id": 0
     },
     {
       "id": "7e3f",
-      "login": "lexa",
+      "login": "lexa123",
+      "password": "qweqwe123",
+      "registred_at": "2039-04-06 16:23",
+      "role_id": 1
+    },
+    {
+      "id": "24",
+      "login": "qqqqqqqqqqqqqqq",
       "password": "qweqwe123",
       "registred_at": "2039-04-06 16:23",
       "role_id": 2
     }
   ],
-  "role": [
+  "roles": [
     {
-      "id": "0",
+      "id": 0,
       "name": "Администратор"
     },
     {
-      "id": "1",
+      "id": 1,
       "name": "Модератор"
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "Читатель"
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "Гость"
     }
   ],
