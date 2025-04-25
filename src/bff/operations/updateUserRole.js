@@ -1,17 +1,19 @@
-import { deleteUser } from "../api";
+import { setUserRole } from "../api";
 import { ROLE } from "../constans";
 import { sessions } from "../sessions";
 
-export const removeUser = async (userSession, userId) => {
+export const updateUserRole = async (hash, userId, newUserRoleId) => {
     const accessRoles = [ROLE.ADMIN];
 
-    if (!sessions.access(userSession, accessRoles)) {
+    const access = sessions.access(hash, accessRoles);
+
+    if (!access) {
         return {
             error: "Доступ запрещен",
             res: null,
         };
     }
-    deleteUser(userId);
+    setUserRole(userId, newUserRoleId);
 
     return {
         error: null,
