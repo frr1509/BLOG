@@ -10,3 +10,4 @@ export * from "./getComments";
 export * from "./addSession";
 export * from "./deleteSession";
 export * from "./getSession.js";
+export * from "./deleteComment.js";
