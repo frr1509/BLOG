@@ -12,3 +12,5 @@ export * from "./deleteSession";
 export * from "./getSession.js";
 export * from "./deleteComment.js";
 export * from "./updatePost";
+export * from "./deletePost.js";
+export * from "./addPost.js";

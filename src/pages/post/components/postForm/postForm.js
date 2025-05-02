@@ -11,6 +11,7 @@ import { useServerRequest } from "../../../../hooks";
 const PostFormContainer = ({
     className,
     post: { id, title, imageUrl, content, publishedAt },
+    isCreating,
 }) => {
     const imageRef = useRef(null);
     const titleRef = useRef(null);
@@ -31,30 +32,26 @@ const PostFormContainer = ({
                 title: newTitle,
                 content: newContent,
             }),
-        ).then(() => navigate(`/post/${id}`));
+        ).then(({ id }) => navigate(`/post/${id}`));
     };
     return (
         <div className={className}>
             <Input
                 ref={imageRef}
-                defaultValue={imageUrl}
+                defaultValue={isCreating ? null : imageUrl}
                 placeholder="Изображение..."
             />
             <Input
                 ref={titleRef}
-                defaultValue={title}
+                defaultValue={isCreating ? null : title}
                 placeholder="Заголовок..."
             />
             <SpecialPanel
+                id={id}
                 publishedAt={publishedAt}
                 margin="20px 0"
                 editButton={
-                    <Icon
-                        id="fa-floppy-o"
-                        size="21px"
-                        margin="0 10px 0 0"
-                        onClick={onSave}
-                    />
+                    <Icon id="fa-floppy-o" size="21px" onClick={onSave} />
                 }
             />
             <div
@@ -76,7 +73,9 @@ export const PostForm = styled(PostFormContainer)`
     }
 
     & .post-text {
-        fonst-size: 18px;
+        font-size: 18px;
         white-space: pre-line;
+        min-height: 80px;
+        border: 1px solid #000;
     }
 `;

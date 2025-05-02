@@ -8,3 +8,5 @@ export * from "./removeCommentAsync";
 export * from "./closeModal";
 export * from "./openModal";
 export * from "./savePostAsync";
+export * from "./removePostAsync";
+export * from "./resetPostData";
