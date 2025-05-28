@@ -3,8 +3,6 @@ import { addSession, deleteSession, getSession } from "./api";
 export const sessions = {
     create(user) {
         const hash = Math.random().toFixed(50);
-        console.log(hash);
-        console.log(user);
         addSession(hash, user);
 
         return hash;
@@ -20,6 +18,6 @@ export const sessions = {
     },
     async access(hash, accessRoles) {
         const dbSession = await getSession(hash);
-        return !!dbSession.user && accessRoles.includes(dbSession.user.roleId);
+        return !!dbSession?.user && accessRoles.includes(dbSession.user.roleId);
     },
 };

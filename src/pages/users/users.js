@@ -1,18 +1,27 @@
 import styled from "styled-components";
-import { Content, H2 } from "../../components";
+import { PrivatContent, H2 } from "../../components";
 import { TableRow, UserRow } from "./components";
 import { useServerRequest } from "../../hooks";
 import { useEffect, useState } from "react";
 import { ROLE } from "../../constans/roleId";
+import { checkAccess } from "../../utils";
+import { useSelector } from "react-redux";
+import { selectUserRole } from "../../selecrtors";
 
 const UsersContainer = ({ className }) => {
     const [users, setUsers] = useState([]);
     const [roles, setRoles] = useState([]);
     const [errorMessage, setErrorMessage] = useState(null);
     const [shouldUpdateUserList, setShouldUpdateUserList] = useState(false);
+    const userRole = useSelector(selectUserRole);
+
     const serverRequest = useServerRequest();
 
     useEffect(() => {
+        if (!checkAccess([ROLE.ADMIN], userRole)) {
+            return;
+        }
+
         Promise.all([
             serverRequest("fetchUsers"),
             serverRequest("fetchRoles"),
@@ -25,16 +34,21 @@ const UsersContainer = ({ className }) => {
             setRoles(rolesRes.res);
         });
         serverRequest("fetchRoles");
-    }, [serverRequest, shouldUpdateUserList]);
+    }, [serverRequest, shouldUpdateUserList, userRole]);
 
     const onUserRemove = (userId) => {
+        if (checkAccess([ROLE.ADMIN], userRole)) {
+            return;
+        }
+
         serverRequest("removeUser", userId).then(() => {
             setShouldUpdateUserList(!shouldUpdateUserList);
         });
     };
+
     return (
-        <div className={className}>
-            <Content error={errorMessage}>
+        <PrivatContent access={[ROLE.ADMIN]} serverError={errorMessage}>
+            <div className={className}>
                 <H2>Пользователи</H2>
                 <div>
                     <TableRow>
@@ -58,8 +72,8 @@ const UsersContainer = ({ className }) => {
                         />
                     ))}
                 </div>
-            </Content>
-        </div>
+            </div>
+        </PrivatContent>
     );
 };
 

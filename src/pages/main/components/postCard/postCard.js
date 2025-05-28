@@ -16,7 +16,7 @@ const PostCardContainer = ({
                 <img src={imageUrl} alt={imageUrl} />
                 <div className="post-card-footer">
                     <h4>{title}</h4>
-                    <dic className="post-card-info">
+                    <div className="post-card-info">
                         <div className="published-at">
                             <Icon
                                 id="fa-calendar-o"
@@ -33,7 +33,7 @@ const PostCardContainer = ({
                             />
                             {commentsCount}
                         </div>
-                    </dic>
+                    </div>
                 </div>
             </Link>
         </div>

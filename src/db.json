@@ -19,7 +19,7 @@
       "login": "qqqqqqqqqqqqqqq",
       "password": "qweqwe123",
       "registred_at": "2039-04-06 16:23",
-      "role_id": 2
+      "role_id": 1
     }
   ],
   "roles": [
@@ -210,35 +210,19 @@
       "post_id": "005",
       "published_at": "2063-12-20 08:20",
       "content": "qwe"
+    },
+    {
+      "id": "6b4e",
+      "author_id": "7e3f",
+      "post_id": "2",
+      "published_at": "2052-04-04 14:09",
+      "content": "asdsa"
     }
   ],
   "sessions": [
     {
-      "id": "1"
-    },
-    {
-      "id": "2"
-    },
-    {
-      "id": "3"
-    },
-    {
-      "id": "4"
-    },
-    {
-      "id": "9dae",
-      "hash": "0.08366057787160507963619693327927961945533752441406",
-      "user": {
-        "id": "001",
-        "login": "alexsey",
-        "password": "qwerty123",
-        "registeredAt": "15.09.2024",
-        "roleId": 0
-      }
-    },
-    {
-      "id": "ae82",
-      "hash": "0.71414317552781225728608660574536770582199096679688",
+      "id": "0c74",
+      "hash": "0.24999615766974603303651747410185635089874267578125",
       "user": {
         "id": "001",
         "login": "alexsey",
