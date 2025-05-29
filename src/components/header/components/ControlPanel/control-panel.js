@@ -9,6 +9,7 @@ import {
 } from "../../../../selecrtors";
 import { logout } from "../../../../actions";
 import { ROLE } from "../../../../constans/roleId";
+import { checkAccess } from "../../../../utils";
 
 const RightAligned = styled.div`
     display: flex;
@@ -24,13 +25,18 @@ const UserName = styled.div`
 const ControlPanelContainer = ({ className }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
     const roleId = useSelector(selectUserRole);
     const login = useSelector(selectUserLogin);
     const session = useSelector(selectUserSession);
+
+    const isAdmin = checkAccess([ROLE.ADMIN], roleId);
+
     const onLogout = () => {
         dispatch(logout(session));
         sessionStorage.removeItem("userData");
     };
+
     return (
         <div className={className}>
             <RightAligned>
@@ -56,13 +62,16 @@ const ControlPanelContainer = ({ className }) => {
                     id="fa-backward"
                     margin="10px 0 0 0"
                 />
-
-                <Link to="/post">
-                    <Icon id="fa-file-text-o" margin="10px 0 0 16px" />
-                </Link>
-                <Link to="/users">
-                    <Icon id="fa-users" margin="10px 0 0 16px" />
-                </Link>
+                {isAdmin && (
+                    <>
+                        <Link to="/post">
+                            <Icon id="fa-file-text-o" margin="10px 0 0 16px" />
+                        </Link>
+                        <Link to="/users">
+                            <Icon id="fa-users" margin="10px 0 0 16px" />
+                        </Link>
+                    </>
+                )}
             </RightAligned>
         </div>
     );

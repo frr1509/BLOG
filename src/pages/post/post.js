@@ -12,12 +12,15 @@ import { ROLE } from "../../constans";
 const PostContainer = ({ className }) => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+
     const post = useSelector(selectPost);
-    const dispatch = useDispatch();
+
     const params = useParams();
-    const requestServer = useServerRequest();
     const isEditing = !!useMatch("/post/:id/edit");
     const isCreating = !!useMatch("/post");
+
+    const dispatch = useDispatch();
+    const requestServer = useServerRequest();
 
     useLayoutEffect(() => {
         dispatch(resetPostData);
@@ -37,6 +40,8 @@ const PostContainer = ({ className }) => {
     if (isLoading) {
         return null;
     }
+
+
 
     const SpecificalPostPage =
         isCreating || isEditing ? (

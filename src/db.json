@@ -19,7 +19,7 @@
       "login": "qqqqqqqqqqqqqqq",
       "password": "qweqwe123",
       "registred_at": "2039-04-06 16:23",
-      "role_id": 1
+      "role_id": 2
     }
   ],
   "roles": [
@@ -217,12 +217,51 @@
       "post_id": "2",
       "published_at": "2052-04-04 14:09",
       "content": "asdsa"
+    },
+    {
+      "id": "0141",
+      "author_id": "001",
+      "post_id": "1",
+      "published_at": "2049-09-17 10:07",
+      "content": "zcxcz"
+    },
+    {
+      "id": "9bb1",
+      "author_id": "001",
+      "post_id": "1",
+      "published_at": "2054-09-21 01:58",
+      "content": "cxxc"
+    },
+    {
+      "id": "1340",
+      "author_id": "001",
+      "post_id": "2",
+      "published_at": "2044-05-30 06:26",
+      "content": "bnm"
+    },
+    {
+      "id": "cec1",
+      "author_id": "24",
+      "post_id": "1",
+      "published_at": "2063-04-22 12:25",
+      "content": "asdasd"
     }
   ],
   "sessions": [
     {
       "id": "0c74",
       "hash": "0.24999615766974603303651747410185635089874267578125",
+      "user": {
+        "id": "001",
+        "login": "alexsey",
+        "password": "qwerty123",
+        "registeredAt": "15.09.2024",
+        "roleId": 0
+      }
+    },
+    {
+      "id": "215b",
+      "hash": "0.33196667411637714728556147747440263628959655761719",
       "user": {
         "id": "001",
         "login": "alexsey",

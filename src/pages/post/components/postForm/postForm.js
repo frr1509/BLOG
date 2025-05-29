@@ -3,10 +3,13 @@ import { Icon, Input } from "../../../../components";
 import { SpecialPanel } from "../specialPanel/specialPanel";
 import { useRef } from "react";
 import { sunitizeContent } from "./utils";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { savePostAsync } from "../../../../actions";
 import { useServerRequest } from "../../../../hooks";
+import { checkAccess } from "../../../../utils";
+import { ROLE } from "../../../../constans";
+import { selectUserRole } from "../../../../selecrtors";
 
 const PostFormContainer = ({
     className,
@@ -16,8 +19,10 @@ const PostFormContainer = ({
     const imageRef = useRef(null);
     const titleRef = useRef(null);
     const contentRef = useRef(null);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const requestSever = useServerRequest();
 
     const onSave = () => {
@@ -34,6 +39,7 @@ const PostFormContainer = ({
             }),
         ).then(({ id }) => navigate(`/post/${id}`));
     };
+
     return (
         <div className={className}>
             <Input
@@ -51,7 +57,12 @@ const PostFormContainer = ({
                 publishedAt={publishedAt}
                 margin="20px 0"
                 editButton={
-                    <Icon id="fa-floppy-o" size="21px" onClick={onSave} />
+                    <Icon
+                        id="fa-floppy-o"
+                        size="21px"
+                        margin="0 10px 0 0"
+                        onClick={onSave}
+                    />
                 }
             />
             <div
