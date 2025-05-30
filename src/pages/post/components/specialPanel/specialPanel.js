@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Icon } from "../../../../components";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,6 +44,7 @@ const SpecialPanelContainer = ({ className, id, publishedAt, editButton }) => {
                     {editButton}
                     {publishedAt && (
                         <Icon
+                            inactive={true}
                             id="fa-trash-o"
                             size="21px"
                             onClick={() => onPostRemove(id)}
@@ -74,3 +76,9 @@ export const SpecialPanel = styled(SpecialPanelContainer)`
         top: -1px;
     }
 `;
+
+SpecialPanel.propTypes = {
+    id: PropTypes.string.isRequired,
+    publishedAt: PropTypes.string.isRequired,
+    editButton: PropTypes.node.isRequired,
+};

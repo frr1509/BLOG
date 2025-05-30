@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { H2, Icon } from "../../../../components";
 import { SpecialPanel } from "../specialPanel/specialPanel";
 import { useNavigate } from "react-router-dom";
+import { PROP_TYPE } from "../../../../constans";
 
 const PostContentContainer = ({
     className,
@@ -19,6 +20,7 @@ const PostContentContainer = ({
                 margin="-20px 0 20px"
                 editButton={
                     <Icon
+                        inactive={true}
                         id="fa-pencil-square-o"
                         size="21px"
                         margin="0 10px 0 0"
@@ -42,3 +44,7 @@ export const PostContent = styled(PostContentContainer)`
         white-space: pre-line;
     }
 `;
+
+PostContent.propTypes = {
+    post: PROP_TYPE.POST.isRequired,
+};

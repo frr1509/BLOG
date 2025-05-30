@@ -1,15 +1,14 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Icon, Input } from "../../../../components";
 import { SpecialPanel } from "../specialPanel/specialPanel";
 import { useRef } from "react";
 import { sunitizeContent } from "./utils";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { savePostAsync } from "../../../../actions";
 import { useServerRequest } from "../../../../hooks";
-import { checkAccess } from "../../../../utils";
-import { ROLE } from "../../../../constans";
-import { selectUserRole } from "../../../../selecrtors";
+import { PROP_TYPE } from "../../../../constans";
 
 const PostFormContainer = ({
     className,
@@ -22,7 +21,6 @@ const PostFormContainer = ({
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
     const requestSever = useServerRequest();
 
     const onSave = () => {
@@ -58,6 +56,7 @@ const PostFormContainer = ({
                 margin="20px 0"
                 editButton={
                     <Icon
+                        inactive={true}
                         id="fa-floppy-o"
                         size="21px"
                         margin="0 10px 0 0"
@@ -90,3 +89,8 @@ export const PostForm = styled(PostFormContainer)`
         border: 1px solid #000;
     }
 `;
+
+PostForm.propTypes = {
+    post: PROP_TYPE.POST.isRequired,
+    isCreating: PropTypes.bool.isRequired,
+};

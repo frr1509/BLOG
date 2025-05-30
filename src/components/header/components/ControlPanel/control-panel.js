@@ -49,6 +49,7 @@ const ControlPanelContainer = ({ className }) => {
                         <UserName>{login}</UserName>
 
                         <Icon
+                            inactive={true}
                             onClick={onLogout}
                             id="fa-sign-out"
                             margin="0 0 0 10px"
@@ -58,6 +59,7 @@ const ControlPanelContainer = ({ className }) => {
             </RightAligned>
             <RightAligned>
                 <Icon
+                    inactive={true}
                     onClick={() => navigate(-1)}
                     id="fa-backward"
                     margin="10px 0 0 0"

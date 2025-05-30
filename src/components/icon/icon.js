@@ -1,7 +1,8 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
-const IconContainer = ({ className, id, onClick, ...props }) => (
-    <div className={className} onClick={onClick} {...props}>
+const IconContainer = ({ className, id, inactive, ...props }) => (
+    <div className={className} {...props}>
         <i className={`fa ${id}`} aria-hidden="true"></i>
     </div>
 );
@@ -12,6 +13,11 @@ export const Icon = styled(IconContainer)`
     color: ${({ disabled }) => (disabled ? "#ccc" : "#000")};
 
     &:hover {
-        cursor: ${({ onClick }) => (onClick ? "pointer" : "defoult")};
+        cursor: ${({ inactive }) => (inactive ? "pointer" : "defoult")};
     }
 `;
+
+Icon.propTypes = {
+    id: PropTypes.string.isRequired,
+    inactive: PropTypes.bool,
+};

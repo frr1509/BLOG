@@ -5,15 +5,18 @@ import { useServerRequest } from "../../hooks";
 import { useEffect, useState } from "react";
 import { ROLE } from "../../constans/roleId";
 import { checkAccess } from "../../utils";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectUserRole } from "../../selecrtors";
+import { CLOSE_MODAL, openModal } from "../../actions";
 
 const UsersContainer = ({ className }) => {
     const [users, setUsers] = useState([]);
     const [roles, setRoles] = useState([]);
     const [errorMessage, setErrorMessage] = useState(null);
     const [shouldUpdateUserList, setShouldUpdateUserList] = useState(false);
+
     const userRole = useSelector(selectUserRole);
+    const dispatch = useDispatch();
 
     const serverRequest = useServerRequest();
 
@@ -37,13 +40,22 @@ const UsersContainer = ({ className }) => {
     }, [serverRequest, shouldUpdateUserList, userRole]);
 
     const onUserRemove = (userId) => {
-        if (checkAccess([ROLE.ADMIN], userRole)) {
+        if (!checkAccess([ROLE.ADMIN], userRole)) {
             return;
         }
 
-        serverRequest("removeUser", userId).then(() => {
-            setShouldUpdateUserList(!shouldUpdateUserList);
-        });
+        dispatch(
+            openModal({
+                text: "Вы точно хотите удалить пользователя?",
+                onConfirm: () => {
+                    serverRequest("removeUser", userId).then(() => {
+                        setShouldUpdateUserList(!shouldUpdateUserList);
+                    });
+                    dispatch(CLOSE_MODAL);
+                },
+                onCancel: () => dispatch(CLOSE_MODAL),
+            }),
+        );
     };
 
     return (
@@ -61,14 +73,14 @@ const UsersContainer = ({ className }) => {
                     {users.map(({ id, login, registeredAt, roleId }) => (
                         <UserRow
                             key={id}
-                            onUserRemove={() => onUserRemove(id)}
                             id={id}
+                            roleId={roleId}
                             login={login}
                             registeredAt={registeredAt}
-                            roleId={roleId}
                             roles={roles.filter(
                                 ({ id: roleId }) => roleId !== ROLE.GUEST,
                             )}
+                            onUserRemove={() => onUserRemove(id)}
                         />
                     ))}
                 </div>

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Icon } from "../../../../../../components";
 import { useDispatch, useSelector } from "react-redux";
@@ -65,6 +66,7 @@ const CommentContainer = ({
             </div>
             {isAdminOrModerator && (
                 <Icon
+                    inactive={true}
                     id="fa-trash-o"
                     size="21px"
                     margin="0 0 0 10px"
@@ -99,3 +101,11 @@ export const Comment = styled(CommentContainer)`
         display: flex;
     }
 `;
+
+Comment.propTypes = {
+    postId: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    publishedAt: PropTypes.string.isRequired,
+};

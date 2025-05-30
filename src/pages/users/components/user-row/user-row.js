@@ -1,8 +1,10 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Icon } from "../../../../components";
 import { TableRow } from "../table-row/table-row";
 import { useState } from "react";
 import { useServerRequest } from "../../../../hooks";
+import { PROP_TYPE } from "../../../../constans";
 
 const UserRowContainer = ({
     className,
@@ -18,16 +20,17 @@ const UserRowContainer = ({
 
     const requestServer = useServerRequest();
 
+    const isSaveButtonDisabled = selectedRoleId === initialRoleId;
+
     const onRoleChange = ({ target }) => {
         setSelectedRoleId(Number(target.value));
     };
-    const isSaveButtonDisabled = selectedRoleId === initialRoleId;
-
     const onSaveRole = (userId, newUserRoleId) => {
         requestServer("updateUserRole", userId, newUserRoleId).then(() => {
             setInitialRoleId(newUserRoleId);
         });
     };
+
     return (
         <div className={className}>
             <TableRow border={true}>
@@ -42,6 +45,7 @@ const UserRowContainer = ({
                         ))}
                     </select>
                     <Icon
+                        inactive={true}
                         id="fa-floppy-o"
                         disabled={isSaveButtonDisabled}
                         margin="0 0 0 10px"
@@ -50,6 +54,7 @@ const UserRowContainer = ({
                 </div>
             </TableRow>
             <Icon
+                inactive={true}
                 id="fa fa-trash-o"
                 margin="0 0 0 10px"
                 onClick={onUserRemove}
@@ -67,3 +72,12 @@ export const UserRow = styled(UserRowContainer)`
         padding: 0 5px;
     }
 `;
+
+UserRow.propTypes = {
+    id: PropTypes.string.isRequired,
+    roleId: PROP_TYPE.ROLE_ID.isRequired,
+    login: PropTypes.string.isRequired,
+    registeredAt: PropTypes.string.isRequired,
+    roles: PropTypes.arrayOf(PROP_TYPE.ROLE).isRequired,
+    onUserRemove: PropTypes.func.isRequired,
+};
